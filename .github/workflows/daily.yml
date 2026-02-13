@@ -1,5 +1,14 @@
 name: Daily RSS Briefing
 
+
+permissions:
+  contents: write
+
+on:
+  schedule:
+    ...
+  workflow_dispatch:
+
 on:
   schedule:
     # Prague 09:00 (CEST, 대략 4~10월) → 07:00 UTC

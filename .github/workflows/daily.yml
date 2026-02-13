@@ -1,20 +1,14 @@
 name: Daily RSS Briefing
 
-
-permissions:
-  contents: write
 on:
   schedule:
-    # Prague 09:00 (CEST, 대략 4~10월) → 07:00 UTC
     - cron: "0 7 * 4-10 *"
-    # Prague 09:00 (CET, 대략 1~3월, 11~12월) → 08:00 UTC
     - cron: "0 8 * 1-3,11-12 *"
   workflow_dispatch:
 
 jobs:
   run:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,13 +19,11 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Run daily briefing
         env:
           TO_EMAIL: ${{ secrets.TO_EMAIL }}
           GMAIL_CLIENT_SECRET_JSON: ${{ secrets.GMAIL_CLIENT_SECRET_JSON }}
           GMAIL_TOKEN_JSON: ${{ secrets.GMAIL_TOKEN_JSON }}
-        run: |
-          python daily_briefing.py
+        run: python daily_briefing.py
